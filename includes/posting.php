@@ -122,7 +122,8 @@ function LoadProxy ($use_errors, $proxyCheckUrl) {
         $query = mysql_query("SELECT `proxy` FROM `proxy` WHERE " . $errors . " ;");
         while ($row = mysql_fetch_assoc($query))
             $res[] = trim($row['proxy']);
-
+	    if(count($res) < 1)
+		  die('no proxy');
         shuffle($res);
         $pr = $res[0];
         unset($res);
