@@ -11,8 +11,7 @@ $delay = 60; //10 minutes delay, if twitter send 500 errors
 
 $gaSql['link'] = mysql_pconnect($gaSql['server'], $gaSql['user'], $gaSql['password']) or die('Could not open connection to server');
 mysql_select_db($gaSql['db'], $gaSql['link']) or die('Could not select database ' . $gaSql['db']);
-function _useragent ()
-{
+function _useragent () {
     $user_agents = explode("\n", file_get_contents('../src/user_agents.txt'));
     if (is_array(@$user_agents)) {
         return trim($user_agents[array_rand($user_agents)]);
@@ -35,54 +34,48 @@ function _useragent ()
         return $agent;
     }
 }
-function CheckStatus ($id)
-{
+function CheckStatus ($id) {
     $query = mysql_query("SELECT `status` FROM `tasks` WHERE `tasks`.`id` = '$id'");
     $status = mysql_result($query, NULL);
     if (($status !== 'stop')) :
         return false;
-     else :
+    else :
         return true;
     endif;
 }
-function ChangeStatus ($id, $status)
-{
+function ChangeStatus ($id, $status) {
     $query = mysql_query("UPDATE `tasks` SET `status` = '$status' WHERE `tasks`.`id` = '$id'");
     if (($query)) :
         return false;
-     else :
+    else :
         return true;
     endif;
 }
-function SetError ($id, $error)
-{
+function SetError ($id, $error) {
     $query = mysql_query("UPDATE `accounts` SET `error` = '$error' WHERE `accounts`.`pair` = '$id'");
     if (($query)) :
         return false;
-     else :
+    else :
         return true;
     endif;
 }
-function SetErrorProxy ($proxy, $error)
-{
+function SetErrorProxy ($proxy, $error) {
     $query = mysql_query("UPDATE `proxy` SET `error` = '$error' WHERE `proxy`.`proxy` = '$proxy'");
     if (($query)) :
         return false;
-     else :
+    else :
         return true;
     endif;
 }
-function ChangeProgress ($id, $percent)
-{
+function ChangeProgress ($id, $percent) {
     $query = mysql_query("UPDATE `tasks` SET `progress` = '$percent' WHERE `tasks`.`id` = '$id'");
     if (($query)) :
         return false;
-     else :
+    else :
         return true;
     endif;
 }
-function LoadDetails ($id)
-{
+function LoadDetails ($id) {
     $query = mysql_query("SELECT * FROM `tasks` WHERE `tasks`.`id` = '$id'");
     while ($row = mysql_fetch_assoc($query)) :
         $localConf[] = $row;
@@ -95,8 +88,7 @@ function LoadDetails ($id)
     ;
     return (array_merge($localConf, $globalConf));
 }
-function LoadAccounts ($limit, $chooseBy, $use_errors)
-{
+function LoadAccounts ($limit, $chooseBy, $use_errors) {
     ($use_errors) ?  $errors = "1" : $errors = "error='good' OR error=''";
     ($limit == 0) ? $limit = "" : $limit = "LIMIT " . $limit;
     if ($chooseBy == 'random')
@@ -111,30 +103,29 @@ function LoadAccounts ($limit, $chooseBy, $use_errors)
     return ($res);
 }
 function echo_memory_usage() {
-        $mem_usage = memory_get_usage(true);
-       
-        if ($mem_usage < 1024)
-            echo $mem_usage." bytes";
-        elseif ($mem_usage < 1048576)
-            echo round($mem_usage/1024,2)." kilobytes";
-        else
-            echo round($mem_usage/1048576,2)." megabytes";
-           
-        echo "<br/>";
-    } 
+    $mem_usage = memory_get_usage(true);
 
-function LoadProxy ($use_errors, $proxyCheckUrl)
-{
+    if ($mem_usage < 1024)
+        echo $mem_usage." bytes";
+    elseif ($mem_usage < 1048576)
+        echo round($mem_usage/1024,2)." kilobytes";
+    else
+        echo round($mem_usage/1048576,2)." megabytes";
+
+    echo "<br/>";
+} 
+
+function LoadProxy ($use_errors, $proxyCheckUrl) {
     $a = true;
     while ($a == true) {
         ($use_errors) ?  $errors = "1" : $errors = "error=''";
-	$query = mysql_query("SELECT `proxy` FROM `proxy` WHERE " . $errors . " ;");
+        $query = mysql_query("SELECT `proxy` FROM `proxy` WHERE " . $errors . " ;");
         while ($row = mysql_fetch_assoc($query))
             $res[] = trim($row['proxy']);
-	
-	shuffle($res);
-	$pr = $res[0];
-	unset($res);
+
+        shuffle($res);
+        $pr = $res[0];
+        unset($res);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $proxyCheckUrl);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -147,17 +138,16 @@ function LoadProxy ($use_errors, $proxyCheckUrl)
         curl_close($ch);
         preg_match("!" . $pr . "!si", $data, $out);
         if (strlen(@$out[0]) > 1) {
-	    
+
             return $pr;
             $a = false;
             break;
         }
-        //set error to proxy   
+        //set error to proxy
         $query = mysql_query("UPDATE  `proxy` SET `error` = 'error' WHERE `proxy` = '$pr' ");
     }
 }
-function GetPage ($url, $refer, $postdata)
-{
+function GetPage ($url, $refer, $postdata) {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -176,8 +166,7 @@ function GetPage ($url, $refer, $postdata)
     $hh = curl_exec($ch);
     return $hh;
 }
-function Logging ($id, $message)
-{
+function Logging ($id, $message) {
     global $verbose;
     $logmess = date("r") . " " . $id . " " . $message . "\r\n";
     if ($verbose == true)
@@ -187,8 +176,7 @@ function Logging ($id, $message)
     $current = file_get_contents('../tmp/' . $id . '.txt');
     file_put_contents('../tmp/' . $id . '.txt', $current . $logmess);
 }
-function post_text ($ch, $text, $id, $proxy, $login)
-{
+function post_text ($ch, $text, $id, $proxy, $login) {
     global $proxyCheckUrl, $useProxy;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_POST, 0);
@@ -221,17 +209,17 @@ function post_text ($ch, $text, $id, $proxy, $login)
             curl_setopt($ch, CURLOPT_URL, "http://twitter.com/status/update");
             curl_setopt($ch, CURLOPT_POSTFIELDS, "authenticity_token=" . $authenticity_token[1] . "&status=" . urlencode($text . ".") . "&twttr=true&return_rendered_status=true");
             $page = curl_exec($ch);
-	    curl_close($ch);
+            curl_close($ch);
             preg_match("!<body>You are being(.*?)<\/body>!si", $page, $out);
             $page = preg_replace("/\r/", "", $page);
             $page = preg_replace("/\n/", "", $page);
             preg_match("!<a id=\"status_star_([0-9]+)\" class=\"fav-action non-fav\" title=\"favorite this tweet\">!si", $page, $check);
-			if(strlen($check[1]) > 1)
-            			Logging($id, "good one: http://twitter.com/" . $login . "/status/" . $check[1]);
+            if(strlen($check[1]) > 1)
+                Logging($id, "good one: http://twitter.com/" . $login . "/status/" . $check[1]);
             $text = explode(" ", $text);
             if (strpos($page, $text[0]) > 1) :
                 return true;
-             else :
+            else :
                 return false;
             endif;
         }
@@ -239,36 +227,35 @@ function post_text ($ch, $text, $id, $proxy, $login)
     return false;
 }
 
-function LoadPage($url, $postdata, $proxy){
-	$ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            if ($proxy) {
-		Logging(NULL, "switch to proxy " . $proxy . ", timeout limit up to 60 seconds");
-                curl_setopt($ch, CURLOPT_PROXY, $proxy);
-                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, "60");
-                curl_setopt($ch, CURLOPT_TIMEOUT, "60");
-            } else {
-               curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, "30");
-               curl_setopt($ch, CURLOPT_TIMEOUT, "30");
-            }
-            curl_setopt($ch, CURLOPT_ENCODING , "gzip");
-            curl_setopt($ch, CURLOPT_COOKIEFILE, '../tmp/cookie.txt');
-            curl_setopt($ch, CURLOPT_COOKIEJAR, '../tmp/cookie.txt');
-            curl_setopt($ch, CURLOPT_USERAGENT, _useragent());
-            if($postdata){
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
-	    }
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-            return curl_exec($ch);
+function LoadPage($url, $postdata, $proxy) {
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    if ($proxy) {
+        Logging(NULL, "switch to proxy " . $proxy . ", timeout limit up to 60 seconds");
+        curl_setopt($ch, CURLOPT_PROXY, $proxy);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, "60");
+        curl_setopt($ch, CURLOPT_TIMEOUT, "60");
+    } else {
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, "30");
+        curl_setopt($ch, CURLOPT_TIMEOUT, "30");
+    }
+    curl_setopt($ch, CURLOPT_ENCODING , "gzip");
+    curl_setopt($ch, CURLOPT_COOKIEFILE, '../tmp/cookie.txt');
+    curl_setopt($ch, CURLOPT_COOKIEJAR, '../tmp/cookie.txt');
+    curl_setopt($ch, CURLOPT_USERAGENT, _useragent());
+    if($postdata) {
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+    }
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    return curl_exec($ch);
 }
 
-function TweetCheck ($text)
-{
+function TweetCheck ($text) {
     preg_match("!http:\/\/(.*?)=!si", $text, $out);
     if (strlen(@$out[1]) > 1) :
         //link found in text
@@ -276,7 +263,7 @@ function TweetCheck ($text)
         $wordLimit = 140 - strlen(' http://' . $out[1]);
         $text = substr($text, 0, $wordLimit);
         $text = $text . 'http://' . $out[1];
-     else :
+    else :
         $text = substr($text, 0, 140);
     endif;
     return preg_replace("!=!si", " ", $text);
@@ -287,10 +274,10 @@ function derPoster ($id) //ja ja, naturlich!
     Logging($id, "task started\r\n\r\n");
     $cPos = 0;
     $addCheck = 0; //additional check for proxy failing
-    
+
     $confs = LoadDetails($id);
     if ( file_exists('../tmp/' . $id . '.txt'))
-		    unlink('../tmp/' . $id . '.txt');
+        unlink('../tmp/' . $id . '.txt');
 
     $lConf = $confs[0];
     (($confs[1]['opt_value'] == 'on')) ? $useShort = true : $useShort = false;
@@ -327,10 +314,10 @@ function derPoster ($id) //ja ja, naturlich!
             }
             Logging($id, "formed " . count($linkArray) . " items in post array");
             break;
-        case ('tweets'): 
-            Logging($id, "getting tweets"); 
-            $tweets = explode("\n", $lConf['content']); 
-            foreach ($tweets as $tweet) { 
+        case ('tweets'):
+            Logging($id, "getting tweets");
+            $tweets = explode("\n", $lConf['content']);
+            foreach ($tweets as $tweet) {
                 if (strlen($tweet) > 0) {
                     preg_match("!http://(.*)!si", $tweet, $out);
                     if (strlen(@$out[0]) > 1) {
@@ -353,34 +340,42 @@ function derPoster ($id) //ja ja, naturlich!
             break;
     }
     //posting
-    foreach($linkArray as $checks){
-	if(strlen($checks) > 1)
-		    $tmpArr[] = $checks;
-	
-    } 
+    foreach($linkArray as $checks) {
+        if(strlen($checks) > 1)
+            $tmpArr[] = $checks;
+
+    }
     $linkArray = $tmpArr;
     $ord = $lConf['ordering'];
     $acc = $lConf['used_accounts'];
-    $accounts = LoadAccounts($acc, $ord, $use_accs_error); 
+    $accounts = LoadAccounts($acc, $ord, $use_accs_error);
     $textPosition = 0;
 
+    //proxy and account check
+    if(count($accounts) < 1)
+        Logging($id, "check your accounts!");
+
+
+
     for ($i = 0; $i < count($accounts); $i++) {
-		if( CheckStatus($id) == true)	{
-				Logging($id, "task paused or deleted");
-				die();
-				}
-				
+        if( CheckStatus($id) == true) {
+            Logging($id, "task paused or deleted");
+            die();
+        }
+
         if ($useProxy) {
             $cProxy = LoadProxy($use_proxy_error, $proxyCheckUrl);
-                        //Logging($id, "proxy used - " . $cProxy);
-		      }
+            //Logging($id, "proxy used - " . $cProxy);
+            if(strlen($cProxy) < 3)
+                Logging($id, "check your proxy!");
+        }
 
-      if ( file_exists('../tmp/cookie.txt'))
-		      unlink('../tmp/cookie.txt');
+        if ( file_exists('../tmp/cookie.txt'))
+            unlink('../tmp/cookie.txt');
 
-	//Logging($id, "cookie deleted"); 
+        //Logging($id, "cookie deleted");
 
-	unset($authenticity_token); 
+        unset($authenticity_token);
         if ($textPosition > (count($linkArray) - 1))
             $textPosition = 0;
         $text = $linkArray[$textPosition];
@@ -388,34 +383,34 @@ function derPoster ($id) //ja ja, naturlich!
         $cPos ++;
         if ($cPos == count($linkArray))
             $cPos = 0;
-            //calculating percents
+        //calculating percents
         $chunk = 100 / count($accounts);
         $percent = $chunk * $i;
         $percent = $percent + $chunk;
         ChangeProgress($id, $percent);
         Logging($id, "use " . $accounts[$i]['pair']);
         $exp = explode(":", $accounts[$i]['pair']);
-	//$i++;
+        //$i++;
         $tryProxyCount = 0;
         while (($tryProxyCount != $tryProxy) || ($tryProxyCount != true)) :
 
             $twhom = LoadPage("http://mobile.twitter.com/".$exp[0], NULL, $cProxy);
             //Logging($id, "returned size of http://twitter.com/ " . strlen($twhom));
             $authenticity_token = null;
-	    
- 
-	    preg_match("!the profile you were trying to view was suspended due to strange activity!si", $twhom, $out);
-	    if ($out) { //check for suspend
-		//mark in database for suspend
-		Logging($id, $i . " account ".$exp[0]." suspended, start new cycle");
-		SetError($accounts[$i]['pair'], 'suspended');
-		continue(2);
-	    }
 
-	    preg_match("!".$exp[0]."!si", $twhom, $out); //check for success login
-	    if ($out) {
-		Logging($id, "account good, trying to logg in");
-	    }   
+
+            preg_match("!the profile you were trying to view was suspended due to strange activity!si", $twhom, $out);
+            if ($out) { //check for suspend
+                //mark in database for suspend
+                Logging($id, $i . " account ".$exp[0]." suspended, start new cycle");
+                SetError($accounts[$i]['pair'], 'suspended');
+                continue(2);
+            }
+
+            preg_match("!".$exp[0]."!si", $twhom, $out); //check for success login
+            if ($out) {
+                Logging($id, "account good, trying to logg in");
+            }
 
             preg_match("#<input name=\"authenticity_token\" type=\"hidden\" value=\"(.+)\"#sU", $twhom, $authenticity_token);
 
@@ -425,104 +420,104 @@ function derPoster ($id) //ja ja, naturlich!
             } else {
                 $tryProxyCount ++;
                 Logging($id, "Zero answer received, try " . ($tryProxyCount) . " attempt");
-            }
+        }
 
         endwhile;
-        
+
         if (strlen(@$authenticity_token[1]) < 1) {
             Logging($id, "token not found, maybe proxy doesn't work?" . $addCheck);
             $i --;
-	    $addCheck ++;
-	      if($addCheck == 3){
-		  $addCheck = 0;
-		  Logging($id, "something wrong with twitter".  $twhom);
-		  $i++;
-		  sleep($delay);
-		  continue;
-		}
+            $addCheck ++;
+            if($addCheck == 3) {
+                $addCheck = 0;
+                Logging($id, "something wrong with twitter".  $twhom);
+                $i++;
+                sleep($delay);
+                continue;
+            }
             continue;
         } else {
-	  $addCheck = 0;
-	}
+            $addCheck = 0;
+        }
         $tryProxyCount = 0;
         while (($tryProxyCount != $tryProxy) || ($tryProxyCount != true)) :
-	$postvars = array(
-		'authenticity_token' => trim($authenticity_token[1]),
-		'username' => trim($exp[0]),
-		'password' => trim($exp[1]),
-	);
+            $postvars = array(
+                    'authenticity_token' => trim($authenticity_token[1]),
+                    'username' => trim($exp[0]),
+                    'password' => trim($exp[1]),
+            );
             $hh = LoadPage("https://mobile.twitter.com/session", http_build_query($postvars), $cProxy);
 
 
-	    preg_match("!What's happening!si", $hh, $out); //check for success login
-	    if ($out) {
-		//SetError($accounts[$i]['pair'], 'good');
-		//Logging($id, "logged in succesfully, trying to post in");
-	    }  
+            preg_match("!What's happening!si", $hh, $out); //check for success login
+            if ($out) {
+                //SetError($accounts[$i]['pair'], 'good');
+                //Logging($id, "logged in succesfully, trying to post in");
+            }
 
             if (strlen($hh) > 200) {
                 $tryProxyCount = true;
             } else {
                 $tryProxyCount ++;
                 Logging($id, "Trying to resend login to session page, try " . ($tryProxyCount) . " attempt");
-            }
+        }
         endwhile;
 
         if ($tryProxyCount != true) {
             Logging($id, "cannot load session page, maybe proxy doesn't work?" . $addCheck);
             $i --;
-	    $addCheck ++;
-	      if($addCheck == 3){
-		  $addCheck = 0;
-		  Logging($id, "something wrong with twitter".  $hh);
-		  $i++;
-		  sleep($delay);
-		  continue;
-		}
+            $addCheck ++;
+            if($addCheck == 3) {
+                $addCheck = 0;
+                Logging($id, "something wrong with twitter".  $hh);
+                $i++;
+                sleep($delay);
+                continue;
+            }
             continue;
         } else {
-	  $addCheck = 0;
-	}
+            $addCheck = 0;
+        }
         $tryProxyCount = 0;
 
         while (($tryProxyCount != $tryProxy) || ($tryProxyCount != true)) :
 
-		$postvars = array(
-		'authenticity_token' => trim($authenticity_token[1]),
-		'tweet[text]' => $text,
-		'tweet[in_reply_to_status_id]' => '',
-		'tweet[lat]' => '',
-		'tweet[long]' => '',
-		'tweet[place_id]' => '',
-		'tweet[display_coordinates]' => '',
-	);
-	$twe = LoadPage("http://mobile.twitter.com/", http_build_query($postvars), $cProxy);
-            if ($twe) { 
-		$tryProxyCount = true;
-		preg_match("!".trim($text)."!si", strip_tags($twe), $out);
+            $postvars = array(
+                    'authenticity_token' => trim($authenticity_token[1]),
+                    'tweet[text]' => $text,
+                    'tweet[in_reply_to_status_id]' => '',
+                    'tweet[lat]' => '',
+                    'tweet[long]' => '',
+                    'tweet[place_id]' => '',
+                    'tweet[display_coordinates]' => '',
+            );
+            $twe = LoadPage("http://mobile.twitter.com/", http_build_query($postvars), $cProxy);
+            if ($twe) {
+                $tryProxyCount = true;
+                preg_match("!".trim($text)."!si", strip_tags($twe), $out);
 
-		    if($out){ 
-			  //Logging($id, "posted succesfully " . trim($text));
-			  //trying to find link dircetly to status
-			  preg_match("!<a href=\"/".$exp[0]."/status/([0-9]+.)\" class=\"status_link\">!si", $twe, $cho);
-			  if(strlen($cho[1]) > 1){
-				  Logging($id,  "http://twitter.com/".$exp[0]."/status/".$cho[1]);
-				  $goodLnk .= "http://twitter.com/".$exp[0]."/status/".$cho[1]."/r/n";
-				  }
-			  SetError($accounts[$i]['pair'], 'good');
-			  break;
-			  }
+                if($out) {
+                    //Logging($id, "posted succesfully " . trim($text));
+                    //trying to find link dircetly to status
+                    preg_match("!<a href=\"/".$exp[0]."/status/([0-9]+.)\" class=\"status_link\">!si", $twe, $cho);
+                    if(strlen($cho[1]) > 1) {
+                        Logging($id,  "http://twitter.com/".$exp[0]."/status/".$cho[1]);
+                        $goodLnk .= "http://twitter.com/".$exp[0]."/status/".$cho[1]."/r/n";
+                    }
+                    SetError($accounts[$i]['pair'], 'good');
+                    break;
+                }
 
-	      
 
-             } else {
+
+            } else {
                 $tryProxyCount ++;
                 Logging($id, "can't load page after posting, " . $tryProxyCount . " attempt");
-            }
+        }
         endwhile;
 
     }
-ChangeStatus($id, "stop");
+    ChangeStatus($id, "stop");
 
 }
 

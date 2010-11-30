@@ -9,7 +9,17 @@ include_once("./includes/lForm.php");
 if($_POST){
 	$mess = "test";
 	$key = $_POST['key'];
- 	$sAnsw = file_get_contents("http://holms-info.ru/check.php?key=".$key); 
+ 	$sAnsw = file_get_contents("http://holms-info.ru/check.php?key=".$key);
+            if(!$sAnsw){
+                    $sAnsw1 = file_get_contents("http://interglob.ru/check.php?key=".$key);
+
+                    if(!$sAnsw1){
+                        login("Can't verify your license. "); die();
+                    } else {
+                        $sAnsw = $sAnsw1;
+                    }
+                 }
+                 echo $sAnsw;
 		if($sAnsw == "ERR:LICENSE_DOESNT_EXIST"){login("License doesn't exists.");
 					die();}
 		if($sAnsw == "ERR:SERVER_IP_MISMATCH"){login("You cannot use this software from this ip.");

@@ -49,8 +49,9 @@
 
                     function CheckServer() {
 
-                        $file = fopen('../src/test.txt', 'w+');
-                        fclose($file);
+                        $a = chmod('../tmp/', 0777);
+                        if($a)
+                            $a = chmod('../includes/', 0777);
                         echo '<h2>Step 2</h2>';
                         echo '<p>tmp directory is ';
                         echo (is_writable('../tmp/')) ? ' <span style="color:yellow"> writable</span></p>' : '<span style="color:red"> not writable</span></p>';
