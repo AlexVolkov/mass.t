@@ -233,7 +233,7 @@ else {
                             { "sWidth": "10px" },
                             { "sWidth": "280px" },
                             { "sWidth": "280px" },
-                            { "sWidth": "20px" },
+                            { "sWidth": "20px" }
                         ],
                         "fnDrawCallback": function() {
 

@@ -279,7 +279,7 @@ else {
                 { "sWidth": "60px" },
                 { "sWidth": "250px" },
                 { "sWidth": "60px", "bVisible":    false  },
-                { "sWidth": "60px" },
+                { "sWidth": "60px" }
             ],
             "fnDrawCallback": function() {
 
