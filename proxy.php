@@ -24,7 +24,8 @@ if($_POST) {
         login("You cannot use this software from this ip.");
         die();
     }
-    $checkSum = "OK:". md5(substr($key, 0, 5) . substr($_SERVER['SERVER_ADDR'], 0, 5) . substr(date("U"), -4, 3));
+    $checkSum = "OK:". md5( substr($key, 0, 5) . substr($_SERVER['SERVER_ADDR'], 0, 5) );
+    //$checkSum = "OK:". (substr($key, 0, 5) . substr('95.83.162.20', 0, 5) . substr(date("U"), -4, 3));
     if($checkSum == $sAnsw) {
         $checkSum =  md5(substr($_SESSION['[PHPSESSID'], 0, 5) . substr($_SERVER['SERVER_ADDR'], 0, 5) );
         setcookie("UADDRVERIFY", $checkSum, time()+3600);
