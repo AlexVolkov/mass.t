@@ -188,7 +188,7 @@
 				
 		//$sOutput = substr_replace( $sOutput, "", -1 );
 		//$sOutput .= '","';
-		$sOutput .=  $buttin  . str_replace('', '', ' <a title=\'Edit task\' class=\'edit\' href=\'#\' id=\'e'.$aRow[ $aColumns[0] ].'\'><img src=\'./images/icons/edit.png\' /></a> <a title=\'Delete task\' class=\'delete\' href=\'#\' id=\''.$aRow[ $aColumns[0] ].'\'><img src=\'./images/icons/stop.png\' /></a> <a title=\'View log\' class=\'view_log\' href=\'./tmp/'.$aRow[ $aColumns[0] ].'.txt\' ><img src=\'./images/icons/log.png\' /></a>"');
+		$sOutput .=  $buttin  . str_replace('', '', ' <a title=\'Edit task\' class=\'edit\' href=\'#\' id=\'e'.$aRow[ $aColumns[0] ].'\'><img src=\'./images/icons/edit.png\' /></a> <a title=\'Delete task\' class=\'delete\' href=\'#\' id=\''.$aRow[ $aColumns[0] ].'\'><img src=\'./images/icons/stop.png\' /></a> <a title=\'View log\' class=\'view_log\' href=\'./tmp/'.$aRow[ $aColumns[0] ].'.txt\' target=\'_blank\'><img src=\'./images/icons/log.png\' /></a>"');
 		$sOutput .= "],";
 
 	}

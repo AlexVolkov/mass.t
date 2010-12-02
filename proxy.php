@@ -380,7 +380,7 @@ else {
                         <a href="#delete" id="delete"><img src='./images/icons/delete.png' alt="Delete proxy" title="Delete proxy" /></a>
                         <a href="#saveall" id="saveAll"><img src='./images/icons/save-all.png' alt="Save all edited proxies" title="Save all edited proxies" /></a>
                         <a href="#clearAll" id="clearAll"><img src='./images/icons/cut.png' alt="Clear All" title="Clear All" /></a>
-                        <a href="./includes/exportproxy.php" id="export"><img src='./images/icons/export.png' alt="Export" title="Export" /></a>
+                        <a target="_blank" href="./includes/exportproxy.php" id="export"><img src='./images/icons/export.png' alt="Export" title="Export" /></a>
                         <span class="info tips" style="width:600px;">
                                 <?php $hints = array(
             "if you're using proxy - check them before using. Task time may increase dramatically",

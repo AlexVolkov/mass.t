@@ -376,7 +376,7 @@ var refreshId = setInterval(function()
     </head>
     <body>
 
-        <div id="showMessage" style="display: none :"></div>
+        <div id="showMessage" style="display: none;"></div>
 
 
         <div id="dialog-confirm" title="Delete this task?">
@@ -399,10 +399,6 @@ var refreshId = setInterval(function()
 
         <div id="addTaskDialog" title="Add new task">
             <form id="addTask">
-
-
-
-
                 <div id="tabs1">
                     <ul id="navMenu">
                         <li><a href="#tabs-1">Add list of tweets</a></li>
@@ -411,10 +407,6 @@ var refreshId = setInterval(function()
                     <div id="tabs-1"><label>Paste tweets:</label><textarea name="tweets"></textarea><br /><small>separate with colon</small></div>
                     <div id="tabs-2"><label>Paste feeds:</label><textarea name="feeds"></textarea><br /><small>separate with colon</small></div>
                 </div>
-
-
-
-
                 <div class="buttons"><br />
                     <label>Use num. of accounts:</label> <input type="text" size="5"	value="0" name="numaccs" id="accs" /><small>(0 - use all,max - <?php echo $counts[0]['accs']; ?>)</small><br />
                     <br />

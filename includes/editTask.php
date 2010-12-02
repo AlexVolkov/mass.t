@@ -39,7 +39,7 @@ if($_POST['act'] == "load"){
 			<ul>
 			<li><label>Used accounts:</label><input style=\"width:50px;\" type=\"text\" name=\"used_accounts\" value=\"".$data[0]['used_accounts']."\"/></li>
 			<input type=\"hidden\" name=\"id\" value=\"".$data[0]['id']."\"/>
-			<li><label>Choose accounts </label><input type=\"radio\" name=\"ordering\" value=\"order\" ".$ord."/><small>by a row</small>
+			<li><label>Choose accounts </label><input type=\"radio\" name=\"ordering\" value=\"order\" ".$ord."/><small>in a sequence</small>
 		<input type=\"radio\" name=\"ordering\" value=\"random\" ".$rand."/><small>randomly</small></li>";
 			if($config[0]['opt_value'] == "on"){
 			$formData .= "<li><label>Select shortener:</label><select name=\"shortener\">

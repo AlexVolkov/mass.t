@@ -25,7 +25,7 @@ echo "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3
                 <input type=\"text\" name=\"key\" class=\"input\" id=\"username\" />
             </div>
             <div class=\"form-col form-col-right\"> 
-              <input type=\"submit\" name=\"\" value=\"Login\" class=\"submit\" />
+              <input type=\"submit\" name=\"\" value=\"Enter\" class=\"submit\" />
             </div>      
             <div class=\"form-col form-col-check\">". $mess  ."         
             </div>           
