@@ -2,7 +2,6 @@
 require_once './db.php';
 require_once './shorteners.php';
 
-$short = new Shorteners();
 $sTable = "tasks";/* DB table to use */
 $verbose = true; //write all messages into log
 $tryProxy = 3; //proxy checks before change if bad
@@ -286,6 +285,7 @@ function derPoster ($id) //ja ja, naturlich!
     (($confs[5]['opt_value'] == 'on')) ? $use_proxy_error = true : $use_proxy_error = false;
     (($confs[6]['opt_value'] == 'on')) ? $use_accs_error = true : $use_accs_error = false;
     ChangeStatus($id, "start");
+    $short = new Shorteners();
     switch ($lConf['source']) {
         case ('feeds'):
             Logging($id, "getting feeds");
