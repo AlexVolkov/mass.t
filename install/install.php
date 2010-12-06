@@ -29,7 +29,56 @@
                     function ShowLicense() {
                         echo '<form method="get" action="./install.php?step=2" id="license">
                             <h2>End-user license agreement (EULA)</h2>
-                            <textarea>Bla-bla-bla</textarea>
+                            <textarea>
+1. This is an agreement between Licensor
+and Licensee, who is being licensed to use the named Software.
+
+2. The Software is protected by copyright
+laws and international copyright treaties, as well as other intellectual
+property laws and treaties. The Software is licensed, not sold.
+
+3. Licensee acknowledges that this
+is only a limited nonexclusive license.  Licensor is and remains
+the owner of all titles, rights, and interests in the Software.
+
+4. This License permits Licensee to
+install the Software on only one computer system.  Licensee will
+not make copies of the Software or allow copies of the Software to be
+made by others, unless authorized by this License Agreement.  Licensee
+may make copies of the Software for backup purposes only.
+
+5. Notwithstanding the foregoing,
+LICENSOR IS NOT LIABLE TO LICENSEE FOR ANY DAMAGES, INCLUDING COMPENSATORY,
+SPECIAL, INCIDENTAL, EXEMPLARY, PUNITIVE, OR CONSEQUENTIAL DAMAGES,
+CONNECTED WITH OR RESULTING FROM THIS LICENSE AGREEMENT OR LICENSEE’S
+USE OF THIS SOFTWARE.
+
+6. Licensee agrees to defend and indemnify
+Licensor and hold Licensor harmless from all claims, losses, damages,
+complaints, or expenses connected with or resulting from Licensee’s
+business operations.
+
+7. Licensor has the right to terminate
+this License Agreement and Licensee’s right to use this Software upon
+any material breach by Licensee.
+
+8. Licensee agrees to return to Licensor
+or to destroy all copies of the Software upon termination of the License.
+
+9. This License Agreement is the entire
+and exclusive agreement between Licensor and Licensee regarding this
+Software.  This License Agreement replaces and supersedes all prior
+negotiations, dealings, and agreements between Licensor and Licensee
+regarding this Software.
+
+10. This License Agreement is valid
+without Licensor’s signature.  It becomes effective upon the
+Licensee’s use of the Software.
+
+
+
+
+</textarea>
                             <input type="submit" name="step" value="Agree"/>
                            </form>';
                     }
