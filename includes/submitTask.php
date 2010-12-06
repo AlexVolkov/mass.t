@@ -15,9 +15,9 @@ function TweetCheck ($text)
     if (strlen($out[0]) > 5) :
         //link found in text
         $text = preg_replace("!". $out[0] ."!si", "", $text);
-        $wordLimit = 140 - strlen($out[0]);
+        $wordLimit = 139 - strlen($out[0]);
         $text = substr($text, 0, $wordLimit);
-        $text = $text .  $out[0];
+        $text = $text . " ". $out[0];
 
      else : 
         $text = substr($text, 0, 140);
