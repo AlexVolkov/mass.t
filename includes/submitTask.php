@@ -10,13 +10,14 @@ if (! $link) {
 
 function TweetCheck ($text)
 {
-    preg_match("!http://(.*?) !si", $text, $out);
-    if (strlen($out[1]) > 1) : 
+    preg_match("/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/", $text, $out);
+
+    if (strlen($out[0]) > 5) :
         //link found in text
-        $text = preg_replace("/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/", "", $text);
+        $text = preg_replace("!". $out[0] ."!si", "", $text);
         $wordLimit = 140 - strlen($out[0]);
         $text = substr($text, 0, $wordLimit);
-        $text = $text . ' http://' . $out[1];
+        $text = $text .  $out[0];
 
      else : 
         $text = substr($text, 0, 140);
@@ -61,4 +62,7 @@ if (strlen($_POST['feeds']) > 0) :
 
 mysql_close($link);
 ShowWindow("Enter tweet of feed url", "error");
+
+
+
 ?>
