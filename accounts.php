@@ -380,7 +380,7 @@ else {
                                 <?php $hints = array(
             "To edit account pair, click on E icon on the right, edit it and click on Save All",
             "You can edit multiple accounts at once, don't forget click Save All when finished",
-            "To delete all suspended accounts, type in <strong>'susp'</strong> in searchbox and click <strong>'select all'</strong>. then delete it"
+            "To delete all suspended accounts, select <strong>'suspended'</strong> in falling list and click <strong>'select all'</strong>. then delete it"
     );
     $rand = array_rand($hints, 1);
     echo $hints[$rand];

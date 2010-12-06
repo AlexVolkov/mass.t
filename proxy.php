@@ -285,7 +285,7 @@ else {
                         return false;
                     });
                 } );
-                $("div.toolbar").html('<span style="float:left; margin:0; padding:0;"><a href="javascript:void(NULL);" id="selectAll">selectAll</a> &nbsp; <a href="javascript:void(NULL);" id="deselectAll">deselectAll</a></span> &nbsp; <select id="select_box" ONCHANGE="oTable.fnFilter(this.options[this.selectedIndex].value);"><option selected disabled>choose error to see</option<option value="error">error</option></select>');
+                $("div.toolbar").html('<span style="float:left; margin:0; padding:0;"><a href="javascript:void(NULL);" id="selectAll">selectAll</a> &nbsp; <a href="javascript:void(NULL);" id="deselectAll">deselectAll</a></span> &nbsp; <select id="select_box" ONCHANGE="oTable.fnFilter(this.options[this.selectedIndex].value);"><option selected disabled>choose error to see</option><option value="error">error</option><option value="">clear</option></select>');
 
                 function fnGetSelected( oTableLocal )
                 {

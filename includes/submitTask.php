@@ -13,8 +13,8 @@ function TweetCheck ($text)
     preg_match("!http://(.*?) !si", $text, $out);
     if (strlen($out[1]) > 1) : 
         //link found in text
-        $text = preg_replace("!http://" . $out[1] . "!", "", $text);
-        $wordLimit = 140 - strlen(' http://' . $out[1]);
+        $text = preg_replace("/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/", "", $text);
+        $wordLimit = 140 - strlen($out[0]);
         $text = substr($text, 0, $wordLimit);
         $text = $text . ' http://' . $out[1];
 

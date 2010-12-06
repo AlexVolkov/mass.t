@@ -1,9 +1,9 @@
 <?php
-include_once './db.php';
-include_once './shorteners.php';
+require_once './db.php';
+require_once './shorteners.php';
 
+$short = new Shorteners();
 $sTable = "tasks";/* DB table to use */
-
 $verbose = true; //write all messages into log
 $tryProxy = 3; //proxy checks before change if bad
 $proxyCheckUrl = "http://alexvolkov.ru/postcheck.php"; //where to check
@@ -122,8 +122,8 @@ function LoadProxy ($use_errors, $proxyCheckUrl) {
         $query = mysql_query("SELECT `proxy` FROM `proxy` WHERE " . $errors . " ;");
         while ($row = mysql_fetch_assoc($query))
             $res[] = trim($row['proxy']);
-	    if(count($res) < 1)
-		  die('no proxy');
+        if(count($res) < 1)
+            die('no proxy');
         shuffle($res);
         $pr = $res[0];
         unset($res);
@@ -301,7 +301,6 @@ function derPoster ($id) //ja ja, naturlich!
                     $feedOutTitle = array_slice($feedOutTitle[1], 1);
                     $feedOutLink = array_slice($feedOutLink[1], 1);
                     //постим их как список ссылок
-                    $short = new Shorteners();
                     foreach ($feedOutLink as $num => $fLink) :
                         if ($useShort) {
                             $txt = $feedOutTitle[$num] . ' ' . $short->$lConf['shortener']($fLink) . '=';
@@ -323,10 +322,9 @@ function derPoster ($id) //ja ja, naturlich!
                     preg_match("!http://(.*)!si", $tweet, $out);
                     if (strlen(@$out[0]) > 1) {
                         $fLink = trim($out[0]);
-                        $tweet = preg_replace("!" . $fLink . "!si", "", $tweet);
-                        $short = new Shorteners();
+                        $tweet = preg_replace("!" . preg_quote($fLink) . "!si", "", $tweet);
                         if ($useShort) {
-                            $txt = trim($tweet) . '' . $short->$lConf['shortener']($fLink) . '=';
+                            $txt = trim($tweet) . '' . $short->any($fLink) . '=';
                         }
                         if (! $useShort) {
                             $txt = trim($tweet) . '' . $fLink . '=';

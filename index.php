@@ -408,19 +408,15 @@ var refreshId = setInterval(function()
                     <div id="tabs-2"><label>Paste feeds:</label><textarea name="feeds"></textarea><br /><small>separate with colon</small></div>
                 </div>
                 <div class="buttons"><br />
-                    <label>Use num. of accounts:</label> <input type="text" size="5"	value="0" name="numaccs" id="accs" /><small>(0 - use all,max - <?php echo $counts[0]['accs']; ?>)</small><br />
+                    <label>Use num. of accounts:</label> <input type="text" size="5" value="0" name="numaccs" id="accs" /><small>(0 - use all,max - <?php echo $counts[0]['accs']; ?>)</small><br />
                     <br />
                     <label><input type="radio" name="radio" value="order" checked="checked" /> Choose in sequence</label>
                     <label><input type="radio" name="radio" value="random" /> Choose randomly</label>
-                        <?php
-    if($config[0]['opt_value'] == "on") {
-        echo "<br /><label>Select shortener:</label><select name=\"shortener\">
+                        <br /><label>Select shortener:</label><select name=\"shortener\">
 				<option value=\"any\" >Any</option>
 				<option value=\"googl\" >Goo.gl</option>
 				<option value=\"bitly\" >Bit.ly</option>
-			</select>";
-    }
-    ?>
+			</select>
                 </div>
 
             </form>
@@ -459,13 +455,14 @@ var refreshId = setInterval(function()
                         <a href="#addTaskDialog" id="addTask"><img src='./images/icons/add.png' alt="Add task" title="Add task"/></a>
                         <a href="#DeleteTaskDialog" id="DeleteTask"><img src='./images/icons/delete.png' alt="Delete task" title="Delete task" /></a>
                         <span class="info tips" style="width:780px;">
-    <?php $hints = array(
-            "If you're want to use all accounts - type in 0 in account's field",
-            "Proxies and accounts have been checked while task processing",
-    );
-    $rand = array_rand($hints, 1);
-    echo $hints[$rand];
-    ?></span>
+                                <?php $hints = array(
+                                        "If you're want to use all accounts - type in 0 in account's field",
+                                        "Proxies and accounts have been checked while task processing",
+                                        "1 tweet - 1 link, don't forget about it!",
+                                );
+                                $rand = array_rand($hints, 1);
+                                echo $hints[$rand];
+                                ?></span>
                     </span>
 
                 </div>
