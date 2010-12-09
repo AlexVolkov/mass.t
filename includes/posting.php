@@ -501,9 +501,9 @@ function derPoster ($id) //ja ja, naturlich!
                     preg_match("!<a href=\"/".$exp[0]."/status/([0-9]+.)\" class=\"status_link\">!si", $twe, $cho);
                     if(strlen($cho[1]) > 1) {
                         Logging($id,  "http://twitter.com/".$exp[0]."/status/".$cho[1]);
-                        $goodLnk .= "http://twitter.com/".$exp[0]."/status/".$cho[1]."/r/n";
+                        $goodLnk .= "http://twitter.com/".$exp[0]."/status/".$cho[1];
                         $tmf = fopen('../tmp/' . $id . '-good.txt', 'w+');
-                        fwrite($tmf, $goodLnk);
+                        fwrite($tmf, $goodLnk . "\r\n");
                         fclose($tmf);
                     }
                     SetError($accounts[$i]['pair'], 'good');
