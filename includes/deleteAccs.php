@@ -16,11 +16,11 @@ mysql_select_db($gaSql['db'], $gaSql['link']) or die('Could not select database 
 if ($_POST['id'] == '-1') {
     $query = mysql_query("DELETE FROM `$gaSql[db]`.`$sTable` WHERE 1");
     if ($query) {
-        echo ShowWindow("All list deleted", "success");
+        echo ShowWindow("All tasks deleted", "success");
     } else {
         echo ShowWindow("Problems with database", "error");
     }
-    break;
+    exit;
 }
 if ($_POST['id'] !== '') {
     $ids = explode("|", $_POST['id']);
