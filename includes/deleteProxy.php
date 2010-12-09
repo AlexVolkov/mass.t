@@ -20,7 +20,7 @@ if ($_POST['id'] == '-1') {
     } else {
         echo ShowWindow("Problems with database", "error");
     }
-    break;
+    exit;
 }
 if ($_POST['id'] !== '') {
     $ids = explode("|", $_POST['id']);
