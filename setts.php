@@ -170,6 +170,7 @@ else {
                 <li><a href='./accounts.php'>Accounts</a></li>
                 <li><a href='./proxy.php'>Proxy</a></li>
                 <li class="selected"><a href='./setts.php'>Settings</a></li>
+                <li><a href='./about.php'>About</a></li>
             </ul>
         </div>
 
@@ -182,10 +183,10 @@ else {
                 <div id="dt_example">
 
                     <form method="post">
-                        <ul>
+                        <ul style="width:100%">
                             <li><label>Use accounts with errors?</label><input type="checkbox" name="use_accs_with_errors" <?php if($data[5]['opt_value'] == "on") {
         echo 'checked';
-    }?>/> <small>Accounts with any last errors(can't login, suspended, etc) will be used</small></li>
+    }?>/> <small>Accounts with any last errors (can't login, suspended, etc) will be used</small></li>
                             <li><label>Use proxy?</label><input type="checkbox" name="use_proxy" <?php if($data[1]['opt_value'] == "on") {
         echo 'checked';
     }?>/><small>connect twitter through proxy</small></li>

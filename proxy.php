@@ -226,7 +226,7 @@ else {
                         "bProcessing": true,
                         "bServerSide": true,
                         "sAjaxSource": "./includes/fetchProxyJSON.php",
-                        "aLengthMenu": [[25, 50, 100, 500, -1], [25, 50, 100, 500, -1]],
+                        "aLengthMenu": [[25, 50, 100, 500, -1], [25, 50, 100, 500, 'All']],
                         "iDisplayLength": 50,
                         "sDom": '<l<"toolbar">f>rtpi',
                         "aoColumns": [
@@ -368,6 +368,7 @@ else {
                 <li><a href='./accounts.php'>Accounts</a></li>
                 <li class="selected"><a href='./proxy.php'>Proxy</a></li>
                 <li><a href='./setts.php'>Settings</a></li>
+                <li><a href='./about.php'>About</a></li>
             </ul>
         </div>
 
@@ -385,7 +386,7 @@ else {
                                 <?php $hints = array(
             "if you're using proxy - check them before using. Task time may increase dramatically",
             "Turning off proxy get you more speed. You can do it on <a href=\"./setts.php\">settings page</a>",
-            "To delete all proxy with errors, type in <strong>'error'</strong> in searchbox and click <strong>'select all'</strong>. then delete it"
+            "To delete all proxy with errors, select <strong>'error'</strong> from drop list and click <strong>'select all'</strong>. then delete it"
     );
     $rand = array_rand($hints, 1);
     echo $hints[$rand];

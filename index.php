@@ -444,6 +444,7 @@ var refreshId = setInterval(function()
                 <li><a href='./accounts.php'>Accounts</a></li>
                 <li><a href='./proxy.php'>Proxy</a></li>
                 <li><a href='./setts.php'>Settings</a></li>
+                <li><a href='./about.php'>About</a></li>
             </ul>
         </div>
 

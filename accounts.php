@@ -363,6 +363,7 @@ else {
                 <li class="selected"><a href='./accounts.php'>Accounts</a></li>
                 <li><a href='./proxy.php'>Proxy</a></li>
                 <li><a href='./setts.php'>Settings</a></li>
+                <li><a href='./about.php'>About</a></li>
             </ul>
         </div>
 
@@ -375,10 +376,10 @@ else {
                         <a href="#delete" id="delete"><img src='./images/icons/delete.png' alt="Delete account" title="Delete account" /></a>
                         <a href="#saveall" id="saveAll"><img src='./images/icons/save-all.png' alt="Save all edited accounts" title="Save all edited accounts" /></a>
                         <a href="#clearAll" id="clearAll"><img src='./images/icons/cut.png' alt="Clear All" title="Clear All" /></a>
-                        <a target="_blank" href="./includes/exportproxy.php" id="export"><img src='./images/icons/export.png' alt="Export" title="Export" /></a>
+                        <a target="_blank" href="./includes/exportaccounts.php" id="export"><img src='./images/icons/export.png' alt="Export" title="Export" /></a>
                         <span class="info tips" style="width:600px;">
                                 <?php $hints = array(
-            "To edit account pair, click on E icon on the right, edit it and click on Save All",
+            "To edit account, click on E icon on the right, edit it and click on Save All",
             "You can edit multiple accounts at once, don't forget click Save All when finished",
             "To delete all suspended accounts, select <strong>'suspended'</strong> in falling list and click <strong>'select all'</strong>. then delete it"
     );

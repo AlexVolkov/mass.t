@@ -1,5 +1,5 @@
 <?php
-include_once("./lForm.php");
+include_once("./lForm.php");//
 if(strlen($_COOKIE['UADDRVERIFY']) < 1){ 	
 	login();
 	}
