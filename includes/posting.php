@@ -502,7 +502,7 @@ function derPoster ($id) //ja ja, naturlich!
                     if(strlen($cho[1]) > 1) {
                         Logging($id,  "http://twitter.com/".$exp[0]."/status/".$cho[1]);
                         $goodLnk .= "http://twitter.com/".$exp[0]."/status/".$cho[1]."/r/n";
-                        $tmf = fopen('./tmp/' . $id . '-good.txt', 'w+');
+                        $tmf = fopen('../tmp/' . $id . '-good.txt', 'w+');
                         fwrite($tmf, $goodLnk);
                         fclose($tmf);
                     }
